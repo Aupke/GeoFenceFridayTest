@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         public void onProviderDisabled(String provider) {
 
         }
-    }
+    };
 
 
     @Override
