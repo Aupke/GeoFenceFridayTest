@@ -4,7 +4,6 @@ package com.example.aupke.geofencetestfriday;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -17,7 +16,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -30,9 +28,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;//Gittest
+import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     public static final String TAG = "GeoFence";
     public static final int LOCATION_REQUEST_CODE = 1;
@@ -74,14 +70,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Log.e("TEST", "TEST");
         TextView locationNameView = findViewById(R.id.locationInput);
         TextView titleNameView = findViewById(R.id.titleView);
-        String textFromView = locationNameView.getText().toString().trim();
-        LatLng latLng = fetchCoordinatesForLocation(textFromView);
+        TextView contentView = findViewById(R.id.contentView);
+        TextView rangeView = findViewById(R.id.rangeView);
+        String locationNameText = locationNameView.getText().toString().trim();
+        String contentText = contentView.getText().toString().trim();
+        String textFromTitle = titleNameView.getText().toString().trim();
+        int valueForRange = Integer.parseInt(rangeView.getText().toString().trim());
+
+        LatLng latLng = fetchCoordinatesForLocation(locationNameText);
 
         Geofence geofence = new Geofence.Builder()
-                .setRequestId(textFromView)
+                .setRequestId(locationNameText)
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
-                .setCircularRegion(latLng.latitude, latLng.longitude, geoFenceRadius)
+                .setCircularRegion(latLng.latitude, latLng.longitude, valueForRange)
                 .build();
 
         Log.e("LatLng: ", latLng.toString());
@@ -93,7 +95,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
         Intent intent = new Intent(this, IntentHandle.class);
-        intent.putExtra("TITLE_VIEW", titleNameView.getText().toString().trim());
+        intent.putExtra("TITLE_VIEW", textFromTitle);
+        intent.putExtra("Content String", contentText);
         PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (hasPermission() ==  false) ActivityCompat.requestPermissions(this, new String[]{
