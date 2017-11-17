@@ -44,6 +44,8 @@ public class IntentHandle extends IntentService{
         }
 
         Intent notificationClick = new Intent(this, DistanceActivity.class);
+        notificationClick.putExtra("locationLat", bundle.getDouble("locationLat"));
+        notificationClick.putExtra("locationLong", bundle.getDouble("locationLong"));
         notificationClick.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         int time = (int) (System.currentTimeMillis() % 100000000);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),time, notificationClick, 0);

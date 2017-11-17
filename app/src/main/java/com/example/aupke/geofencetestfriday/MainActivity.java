@@ -4,6 +4,7 @@ package com.example.aupke.geofencetestfriday;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -32,40 +33,15 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     public static final String TAG = "GeoFence";
     public static final int LOCATION_REQUEST_CODE = 1;
     public static final String geoCoderTAG = "geoCodeTAG";
 
-
+    Context mContext;
     private GoogleApiClient mGoogleApiClient;
     private int geoFenceRadius = 1000;
-
-    LocationManager locationManager;
-    LocationListener locationListenerGPS = new LocationListener() {
-        @Override
-        public void onLocationChanged(Location location) {
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
-            String LngLat = latitude + ", " + longitude;
-            Log.e("Current Location: ", LngLat);
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-    };
 
 
     @Override
@@ -121,12 +97,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .addGeofence(geofence)
                 .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
                 .build();
-
-
-
+        Log.e("Range: ", valueForRange +"");
         Intent intent = new Intent(this, IntentHandle.class);
         intent.putExtra("TITLE_VIEW", textFromTitle);
         intent.putExtra("Content String", contentText);
+        intent.putExtra("locationLat", latLng.latitude);
+        intent.putExtra("locationLong", latLng.longitude);
         PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (hasPermission() ==  false) ActivityCompat.requestPermissions(this, new String[]{

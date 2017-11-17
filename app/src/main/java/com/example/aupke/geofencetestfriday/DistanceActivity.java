@@ -25,6 +25,7 @@ public class DistanceActivity extends AppCompatActivity implements LocationListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         FrameLayout rl = new FrameLayout(this.getApplicationContext());
         LinearLayout ll = new LinearLayout(this.getApplicationContext());
         ll.setOrientation(LinearLayout.VERTICAL);
@@ -50,12 +51,29 @@ public class DistanceActivity extends AppCompatActivity implements LocationListe
         mLocMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                 0, 0, this);
     }
+
+
     @Override
     public void onLocationChanged(Location location) {
-        tv1.setText("Lat " +   location.getLatitude() + " Long " + location.getLongitude());
+
+        double latitude = getIntent().getExtras().getDouble("locationLat");
+        double longitude = getIntent().getExtras().getDouble("locationLong");
+
+
+        Location abogade = new Location("");
+        abogade.setLatitude(latitude);
+        abogade.setLongitude(longitude);
+        float locationMeters = location.distanceTo(abogade);
+        tv1.setText("" +  locationMeters + " Meters");
     }
-    public void onProviderDisabled(String provider) {}
-    public void onProviderEnabled(String provider) {}
-    public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+    public void onProviderDisabled(String provider) {
+    }
+
+    public void onProviderEnabled(String provider) {
+    }
+
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
 }
 
