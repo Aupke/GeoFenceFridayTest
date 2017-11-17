@@ -28,6 +28,9 @@ public class IntentHandle extends IntentService{
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Bundle bundle = intent.getExtras();
         String title = bundle.getString("TITLE_VIEW");
+        String content = bundle.getString("Content String");
+        String ticker = bundle.getString("Ticker String");
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel("default", "Default Notifications", NotificationManager.IMPORTANCE_DEFAULT);
 
@@ -48,8 +51,8 @@ public class IntentHandle extends IntentService{
 
         Notification notification = new NotificationCompat.Builder(this.getApplicationContext(), "default")
                 .setContentTitle(title)
-                .setContentText("Check out how to get to the Datalogi building!")
-                .setTicker("You're near the Hovedbanegaard. Do you want to see how to get to the CS building?")
+                .setContentText(content)
+                .setTicker(ticker)
                 .setSmallIcon(R.drawable.stat_sys_gps_on)
                 .setAutoCancel(true)
                 .setVibrate(new long[]{1500,0,1500,0})
