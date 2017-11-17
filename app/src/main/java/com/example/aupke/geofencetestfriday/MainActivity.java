@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,8 +37,35 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public static final int LOCATION_REQUEST_CODE = 1;
     public static final String geoCoderTAG = "geoCodeTAG";
 
+
     private GoogleApiClient mGoogleApiClient;
     private int geoFenceRadius = 1000;
+
+    LocationManager locationManager;
+    LocationListener locationListenerGPS = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            String LngLat = latitude + ", " + longitude;
+            Log.e("Current Location: ", LngLat);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    }
 
 
     @Override
@@ -116,6 +146,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
                         PackageManager.PERMISSION_GRANTED;
     }
+
+
 
     @Override
     protected void onStart() {
