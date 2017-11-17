@@ -25,12 +25,15 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DistanceActivity" android:label="@string/app_name_distance">
+        </activity>
+
         <service android:name=".IntentHandle"
             android:exported="false"/>
+
     </application>
 
 </manifest>
