@@ -9,9 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -49,6 +47,25 @@ public class AddGeofenceActivity extends AppCompatActivity implements GoogleApiC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SeekBar seekBar = findViewById(R.id.seekBar);
+        final TextView seekBarValue = findViewById(R.id.textView2);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                seekBarValue.setText("Range is " + String.valueOf(progress) + " meters");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         // Set up Google API
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -69,6 +86,7 @@ public class AddGeofenceActivity extends AppCompatActivity implements GoogleApiC
             Log.e("ERROR", e.getLocalizedMessage());
         }
         return null;
+
     }
 
     @SuppressLint("MissingPermission")
@@ -77,13 +95,14 @@ public class AddGeofenceActivity extends AppCompatActivity implements GoogleApiC
         TextView locationNameView = findViewById(R.id.locationInput);
         TextView titleNameView = findViewById(R.id.titleView);
         TextView contentView = findViewById(R.id.contentView);
-        TextView rangeView = findViewById(R.id.rangeView);
+        SeekBar rangeSeek = findViewById(R.id.seekBar);
         String locationNameText = locationNameView.getText().toString().trim();
         String contentText = contentView.getText().toString().trim();
         String textFromTitle = titleNameView.getText().toString().trim();
-        int valueForRange = Integer.parseInt(rangeView.getText().toString().trim());
+        int valueForRange = rangeSeek.getProgress();
 
         LatLng latLng = fetchCoordinatesForLocation(locationNameText);
+
 
         Geofence geofence = new Geofence.Builder()
                 .setRequestId(locationNameText)

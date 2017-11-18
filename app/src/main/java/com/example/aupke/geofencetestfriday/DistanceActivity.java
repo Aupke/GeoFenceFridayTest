@@ -20,21 +20,14 @@ public class DistanceActivity extends AppCompatActivity implements LocationListe
 
     private LocationManager mLocMgr;
     private TextView tv1;
+    private TextView distanceView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.distance);
+        distanceView = findViewById(R.id.DistanceView);
 
-
-        FrameLayout rl = new FrameLayout(this.getApplicationContext());
-        LinearLayout ll = new LinearLayout(this.getApplicationContext());
-        ll.setOrientation(LinearLayout.VERTICAL);
-
-        setContentView(rl);
-        rl.addView(ll);
-
-        tv1 = new TextView(getApplicationContext());
-        ll.addView(tv1);
 
         //setContentView(R.layout.main);
         mLocMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -65,7 +58,8 @@ public class DistanceActivity extends AppCompatActivity implements LocationListe
         abogade.setLongitude(longitude);
         float locationMeters = location.distanceTo(abogade);
         String locationString = getIntent().getExtras().getString("locationString");
-        tv1.setText("Distance to " + locationString + " is " +  locationMeters + " Meters");
+        int intLocationMeters = (int) locationMeters;
+        distanceView.setText("Distance to " + locationString + " is " +  intLocationMeters + " Meters");
     }
 
     public void onProviderDisabled(String provider) {

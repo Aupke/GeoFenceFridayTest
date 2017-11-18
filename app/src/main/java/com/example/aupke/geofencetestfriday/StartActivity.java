@@ -13,8 +13,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class StartActivity extends AppCompatActivity {
-    private ArrayList<String> history;
-    private String tag = "ErrorHandling";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +20,8 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
     }
-
     public void addGeofence(View view){
         Intent intent = new Intent(StartActivity.this, AddGeofenceActivity.class);
         startActivity(intent);
     }
-
-
-
 }
