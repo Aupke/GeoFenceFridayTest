@@ -7,20 +7,29 @@
     android:layout_height="match_parent"
     tools:context="com.example.aupke.geofencetestfriday.StartActivity">
 
-    <ListView
-        android:id="@+id/listViewGeofence"
-        android:layout_width="369dp"
-        android:layout_height="173dp"
-        tools:layout_editor_absoluteX="7dp"
-        tools:layout_editor_absoluteY="330dp" />
-
     <Button
         android:id="@+id/addNewGeofence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
+        android:layout_marginBottom="31dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="31dp"
         android:onClick="addGeofence"
-        tools:layout_editor_absoluteX="279dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:text="Add"
+        app:layout_constraintBottom_toTopOf="@+id/listViewGeofence"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/listViewGeofence"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="11dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addNewGeofence" />
 
 </android.support.constraint.ConstraintLayout>
