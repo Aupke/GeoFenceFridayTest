@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature
         android:name="android.hardware.location"
         android:required="true" />
@@ -15,25 +16,32 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Geofence"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAhwW-TvPaj38Xeo6-yXMIl-z3um_ERv2o" />
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".AddGeofenceActivity">
+
+        </activity>
+        <activity
+            android:name=".DistanceActivity"
+            android:label="@string/app_name_distance"></activity>
+
+        <service
+            android:name=".IntentHandle"
+            android:exported="false" />
+
+        <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DistanceActivity" android:label="@string/app_name_distance">
-        </activity>
-
-        <service android:name=".IntentHandle"
-            android:exported="false"/>
-
     </application>
 
 </manifest>

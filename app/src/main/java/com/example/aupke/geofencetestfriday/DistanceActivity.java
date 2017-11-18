@@ -64,7 +64,8 @@ public class DistanceActivity extends AppCompatActivity implements LocationListe
         abogade.setLatitude(latitude);
         abogade.setLongitude(longitude);
         float locationMeters = location.distanceTo(abogade);
-        tv1.setText("" +  locationMeters + " Meters");
+        String locationString = getIntent().getExtras().getString("locationString");
+        tv1.setText("Distance to " + locationString + " is " +  locationMeters + " Meters");
     }
 
     public void onProviderDisabled(String provider) {

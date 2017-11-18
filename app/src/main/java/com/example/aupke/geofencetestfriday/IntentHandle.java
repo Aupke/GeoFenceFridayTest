@@ -46,6 +46,7 @@ public class IntentHandle extends IntentService{
         Intent notificationClick = new Intent(this, DistanceActivity.class);
         notificationClick.putExtra("locationLat", bundle.getDouble("locationLat"));
         notificationClick.putExtra("locationLong", bundle.getDouble("locationLong"));
+        notificationClick.putExtra("locationString", bundle.getString("locationString"));
         notificationClick.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         int time = (int) (System.currentTimeMillis() % 100000000);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),time, notificationClick, 0);
@@ -61,7 +62,7 @@ public class IntentHandle extends IntentService{
                 .setContentIntent(pendingIntent)
                 .build();
 
-        Log.d(MainActivity.TAG, "Notification created");
+        Log.d(AddGeofenceActivity.TAG, "Notification created");
 
         NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
         manager.notify(1, notification);

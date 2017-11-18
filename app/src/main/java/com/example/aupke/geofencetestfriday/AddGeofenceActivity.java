@@ -34,7 +34,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.IOException;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class AddGeofenceActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     public static final String TAG = "GeoFence";
     public static final int LOCATION_REQUEST_CODE = 1;
     public static final String geoCoderTAG = "geoCodeTAG";
@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         intent.putExtra("Content String", contentText);
         intent.putExtra("locationLat", latLng.latitude);
         intent.putExtra("locationLong", latLng.longitude);
+        intent.putExtra("locationString", locationNameText);
         PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (hasPermission() ==  false) ActivityCompat.requestPermissions(this, new String[]{
@@ -114,6 +115,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             PendingResult<Status> p = LocationServices.GeofencingApi.addGeofences(mGoogleApiClient, request, pendingIntent);
             Log.e("SUCCES", p.toString());
         }
+
+        Intent backToHomeStartActivity = new Intent(AddGeofenceActivity.this, StartActivity.class);
+        startActivity(backToHomeStartActivity);
     }
 
     private boolean hasPermission() {
