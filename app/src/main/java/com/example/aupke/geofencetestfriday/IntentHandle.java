@@ -57,7 +57,7 @@ public class IntentHandle extends IntentService{
                 .setContentText(content)
                 .setTicker(ticker)
                 .setSmallIcon(R.drawable.stat_sys_gps_on)
-                .setAutoCancel(true)
+                .setAutoCancel(false)
                 .setVibrate(new long[]{1500,0,1500,0})
                 .setContentIntent(pendingIntent)
                 .build();

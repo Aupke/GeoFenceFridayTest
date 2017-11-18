@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -134,6 +135,8 @@ public class AddGeofenceActivity extends AppCompatActivity implements GoogleApiC
             PendingResult<Status> p = LocationServices.GeofencingApi.addGeofences(mGoogleApiClient, request, pendingIntent);
             Log.e("SUCCES", p.toString());
         }
+
+        Toast.makeText(getApplicationContext(),"Geofence has been created", Toast.LENGTH_SHORT).show();
 
         Intent backToHomeStartActivity = new Intent(AddGeofenceActivity.this, StartActivity.class);
         startActivity(backToHomeStartActivity);
